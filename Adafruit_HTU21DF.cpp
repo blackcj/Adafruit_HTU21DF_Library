@@ -15,7 +15,6 @@
  ****************************************************/
 
 #include "Adafruit_HTU21DF.h"
-#include <util/delay.h>
 
 Adafruit_HTU21DF::Adafruit_HTU21DF() {
 }
@@ -92,7 +91,3 @@ float Adafruit_HTU21DF::readHumidity(void) {
 
   return hum;
 }
-
-
-
-/*********************************************************************/
