@@ -17,9 +17,8 @@
 #if (ARDUINO >= 100)
  #include "Arduino.h"
 #else
- #include "WProgram.h"
+ #include "application.h"
 #endif
-#include "Wire.h"
 
 #define HTU21DF_I2CADDR       0x40
 #define HTU21DF_READTEMP      0xE3
@@ -41,4 +40,3 @@ class Adafruit_HTU21DF {
   boolean readData(void);
   float humidity, temp;
 };
-
