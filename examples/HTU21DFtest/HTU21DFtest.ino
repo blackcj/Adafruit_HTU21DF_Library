@@ -1,36 +1,17 @@
-/*************************************************** 
-  This is an example for the HTU21D-F Humidity & Temp Sensor
-
-  Designed specifically to work with the HTU21D-F sensor from Adafruit
-  ----> https://www.adafruit.com/products/1899
-
-  These displays use I2C to communicate, 2 pins are required to  
-  interface
- ****************************************************/
-
-#include <Wire.h>
+// This #include statement was automatically added by the Spark IDE.
 #include "Adafruit_HTU21DF.h"
 
-// Connect Vin to 3-5VDC
-// Connect GND to ground
-// Connect SCL to I2C clock pin (A5 on UNO)
-// Connect SDA to I2C data pin (A4 on UNO)
-
 Adafruit_HTU21DF htu = Adafruit_HTU21DF();
+char resultstr[64];
 
 void setup() {
-  Serial.begin(9600);
-  Serial.println("HTU21D-F test");
-
-  if (!htu.begin()) {
-    Serial.println("Couldn't find sensor!");
-    while (1);
-  }
+    htu.begin();
+    Spark.variable("result", &resultstr, STRING);
 }
 
-
 void loop() {
-  Serial.print("Temp: "); Serial.print(htu.readTemperature());
-  Serial.print("\t\tHum: "); Serial.println(htu.readHumidity());
-  delay(500);
+  float humd = htu.readHumidity();
+  float temp = htu.readTemperature() * 9 / 5 + 32; // Convert to F
+  sprintf(resultstr, "{\"data1\":%f,\"data2\":%f}", humd, temp);
+  delay(30000);
 }
